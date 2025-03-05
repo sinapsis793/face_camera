@@ -1,5 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'dart:io';
 
 import '../face_camera.dart';
 import 'controllers/face_camera_state.dart';
@@ -175,11 +176,19 @@ class _SmartFaceCameraState extends State<SmartFaceCamera>
                 ),
               )
             ] else ...[
-              const Text('No Camera Detected',
-                  style: TextStyle(
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.w500,
-                  )),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const CircularProgressIndicator(),  // Yükleme göstergesi
+                  const SizedBox(height: 15),
+                  Text(
+                    Platform.localeName.toString().contains("tr")
+                      ? "Kamera başlatılıyor..."
+                      : "Initializing camera...",
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                  ),
+                ],
+              ),
               CustomPaint(
                 size: size,
                 painter: HolePainter(),
