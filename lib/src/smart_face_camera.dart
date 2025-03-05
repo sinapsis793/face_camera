@@ -219,7 +219,10 @@ class _SmartFaceCameraState extends State<SmartFaceCamera>
   Widget _cameraDisplayWidget(FaceCameraState value) {
     final CameraController? cameraController = value.cameraController;
     if (cameraController != null && cameraController.value.isInitialized) {
-      return CameraPreview(cameraController, child: Builder(builder: (context) {
+      return Transform(
+          alignment: Alignment.center,
+          transform: Matrix4.identity()..scale(-1.0, 1.0, 1.0),
+          child: CameraPreview(cameraController, child: Builder(builder: (context) {
         if (widget.messageBuilder != null) {
           return widget.messageBuilder!.call(context, value.detectedFace);
         }
@@ -231,7 +234,7 @@ class _SmartFaceCameraState extends State<SmartFaceCamera>
           );
         }
         return const SizedBox.shrink();
-      }));
+      })));
     }
     return const SizedBox.shrink();
   }
